@@ -1,6 +1,12 @@
-{% load i18n %}
-{% trans "Activate account at" %} {{ site.name }}:
+Thank you for registering for a Vidlio account.
+To activate your registration, please visit the following page:
 
-http://{{ site.domain }}{% url 'registration_activate' activation_key %}
+http://vidlio.herokuapp.com{% url "registration_activate" activation_key %}
 
-{% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}
+This page will expire in {{ expiration_days }} day{{ expiration_days|pluralize }}.
+
+***
+
+If you didn't register this account you can simply delete this email and we won't bother you again.
+
+-The Vidlio team
