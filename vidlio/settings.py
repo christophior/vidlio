@@ -84,7 +84,7 @@ STATICFILES_DIRS = (
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'registration',
+    'storages',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
@@ -175,8 +176,18 @@ LOGGING = {
     }
 }
 
+#storages
 
-# required for Heroku db
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+AWS_ACCESS_KEY_ID = 'AKIAI6XYD2NQ2SBDO2YA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'vidlio'
+STATIC_URL = '//s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+
+# # required for Heroku db
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
