@@ -1,7 +1,7 @@
 Vidlio
 ======
 (recommended) 
-Install virtualenv:
+Install virtualenv
 	$ pip install virtualenvwrapper
 
 	After it's installed, add the following lines to your shell's start-up file (.zshrc, .bashrc, .profile, etc).
@@ -12,7 +12,7 @@ Install virtualenv:
 
 	Reload your start up file (e.g. source .zshrc) and you're ready to go.
 
-Creating a new environment:
+Creating a new environment
 	Creating a virtual environment is simple. Just type
 	$ mkvirtualenv vidlio
 
@@ -22,13 +22,13 @@ Creating a new environment:
 
 
 
-Install Django and other modules with pip:
+Install Django and other modules with pip
 	$ pip install django
 
 	there is a requirements.txt file located in the project, to install everything necessary for the project just run
 	$ pip install -r requirements.txt
 
-Start project:
+Start project
 	To run the project we will be using Foreman, just run
 	$ foreman start
 	and the project should be running on http://localhost:5000
