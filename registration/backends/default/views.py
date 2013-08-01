@@ -96,11 +96,7 @@ class RegistrationView(BaseRegistrationView):
           ``False``, registration is not permitted.
         
         """
-<<<<<<< HEAD
-        return getattr(settings, 'REGISTRATION_OPEN', False)
-=======
         return getattr(settings, 'REGISTRATION_OPEN', True)
->>>>>>> f676ec14194b28199658d4e7fe54d0db3101cf60
 
     def get_success_url(self, request, user):
         """

@@ -1,11 +1,7 @@
 Django==1.5.1
 dj-database-url==0.2.2
 dj-static==0.0.5
-<<<<<<< HEAD
 django-admin-bootstrapped==0.4.1
-=======
-django-grappelli==2.4.5
->>>>>>> f676ec14194b28199658d4e7fe54d0db3101cf60
 django-registration==1.0
 django-toolbelt==0.0.1
 gunicorn==17.5
