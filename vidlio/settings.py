@@ -89,12 +89,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-<<<<<<< HEAD
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
-=======
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-
->>>>>>> f676ec14194b28199658d4e7fe54d0db3101cf60
+ #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
