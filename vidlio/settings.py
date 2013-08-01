@@ -1,5 +1,9 @@
 # Django settings for vidlio project.
 
+import os
+import sys
+import urlparse
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
