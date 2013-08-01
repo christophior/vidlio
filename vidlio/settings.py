@@ -1,6 +1,6 @@
 # Django settings for vidlio project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'registration',
+    'storages',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
@@ -167,25 +168,65 @@ LOGGING = {
     }
 }
 
+#storages
 
-# required for Heroku db
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+AWS_ACCESS_KEY_ID = 'AKIAI6XYD2NQ2SBDO2YA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'vidlio'
+STATIC_URL = '//s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# # required for Heroku db
 
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
+# # Parse database configuration from $DATABASE_URL
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
 
-# Static asset configuration
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# # Allow all host headers
+# ALLOWED_HOSTS = ['*']
+
+# # Static asset configuration
+# import os
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# STATIC_ROOT = 'staticfiles'
+# STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
+
+# Register database schemes in URLs.
+urlparse.uses_netloc.append('postgres')
+urlparse.uses_netloc.append('mysql')
+
+try:
+    if 'DATABASES' not in locals():
+        DATABASES = {}
+
+    if 'DATABASE_URL' in os.environ:
+        url = urlparse.urlparse(os.environ['DATABASE_URL'])
+
+        # Ensure default database exists.
+        DATABASES['default'] = DATABASES.get('default', {})
+
+        # Update with environment configuration.
+        DATABASES['default'].update({
+            'NAME': url.path[1:],
+            'USER': url.username,
+            'PASSWORD': url.password,
+            'HOST': url.hostname,
+            'PORT': url.port,
+        })
+        if url.scheme == 'postgres':
+            DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+
+        if url.scheme == 'mysql':
+            DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
+except Exception:
+    print 'Unexpected error:', sys.exc_info()
