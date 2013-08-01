@@ -11,6 +11,6 @@ urlpatterns = patterns('',
     url(r'', include('registration.backends.default.urls')),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^grappelli/', include('grappelli.urls')),
+    # url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
