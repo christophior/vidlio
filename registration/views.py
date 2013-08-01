@@ -11,6 +11,7 @@ from registration import signals
 from registration.forms import RegistrationForm
 
 
+
 class _RequestPassingFormView(FormView):
     """
     A version of FormView which passes extra arguments to certain

@@ -22,8 +22,11 @@ from django.conf.urls import include
 from django.conf.urls import url
 from django.views.generic.base import TemplateView
 
+
 from registration.backends.default.views import ActivationView
 from registration.backends.default.views import RegistrationView
+from registration.forms import RegistrationFormUniqueEmail
+
 
 
 urlpatterns = patterns('',
@@ -37,6 +40,11 @@ urlpatterns = patterns('',
                        url(r'^activate/(?P<activation_key>\w+)/$',
                            ActivationView.as_view(),
                            name='registration_activate'),
+
+                       url(r'^register/$', 
+                           RegistrationView.as_view( form_class=RegistrationFormUniqueEmail),
+                           name='registration_register'),
+
                        url(r'^register/$',
                            RegistrationView.as_view(),
                            name='registration_register'),
