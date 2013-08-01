@@ -1,6 +1,24 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
 {% load i18n %}
 
 {% block content %}
 	<p>{% trans "Registration is currently closed." %}</p>
 {% endblock %}
+=======
+{% extends "registration/base_registration.html" %}
+
+
+{% block title %}Registration closed{% endblock %}
+{% block body_class %}{{ block.super }} registration_closed{% endblock %}
+
+
+{% block content_title %}
+  <h2>Registration closed</h2>
+{% endblock %}
+
+
+{% block content %}
+  <p>Please try <a href="{% url registration_register %}">registering again</a>.</p>
+{% endblock %}
+>>>>>>> f676ec14194b28199658d4e7fe54d0db3101cf60

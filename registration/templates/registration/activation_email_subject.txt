@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {% load i18n %}{% trans "Account activation on" %} {{ site.name }}
+=======
+Vidlio - activate your account
+>>>>>>> f676ec14194b28199658d4e7fe54d0db3101cf60
