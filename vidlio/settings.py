@@ -148,7 +148,10 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'registration',
     'storages',
+    'profiles',
 )
+
+#information for activation email and such
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 EMAIL_HOST = 'smtp.gmail.com'
@@ -157,6 +160,9 @@ EMAIL_HOST_PASSWORD = 'christophior'
 EMAIL_HOST_USER = 'vidlioapp@gmail.com'
 EMAIL_SUBJECT_PREFIX = 'something'
 EMAIL_USE_TLS = True
+
+# specifying models for user profiles
+AUTH_PROFILE_MODULE = "vidlio.UserProfile"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -187,7 +193,7 @@ LOGGING = {
     }
 }
 
-#storages
+# storage information for static files using AWS S3
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
