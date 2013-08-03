@@ -6,7 +6,7 @@ from registration import signals
 from registration.models import RegistrationProfile
 from registration.views import ActivationView as BaseActivationView
 from registration.views import RegistrationView as BaseRegistrationView
-
+from vidlio import models
 
 class RegistrationView(BaseRegistrationView):
     """
@@ -124,6 +124,8 @@ class ActivationView(BaseActivationView):
             signals.user_activated.send(sender=self.__class__,
                                         user=activated_user,
                                         request=request)
+        pro = UserProfile(user = request.user)
+        pro.save()
         return activated_user
 
     def get_success_url(self, request, user):

@@ -1,7 +1,7 @@
 Thank you for registering for a Vidlio account.
 To activate your registration, please visit the following page:
 
-http://vidlio.herokuapp.com{% url "registration_activate" activation_key %}
+http://localhost:5000{% url "registration_activate" activation_key %}
 
 This page will expire in {{ expiration_days }} day{{ expiration_days|pluralize }}.
 

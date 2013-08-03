@@ -41,6 +41,12 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -146,9 +152,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'registration',
+    # 'registration',
     'storages',
-    'profiles',
+    # 'profiles',
+    'userena',
+    'guardian',
+    'easy_thumbnails',
 )
 
 #information for activation email and such
@@ -162,7 +171,18 @@ EMAIL_SUBJECT_PREFIX = 'something'
 EMAIL_USE_TLS = True
 
 # specifying models for user profiles
-AUTH_PROFILE_MODULE = "vidlio.UserProfile"
+# AUTH_PROFILE_MODULE = "profiles.UserProfile"
+# AUTH_USER_MODULE = "profiles.UserProfile"
+
+# LOGIN_REDIRECT_URL = "/profile/create"
+
+ANONYMOUS_USER_ID = -1
+AUTH_PROFILE_MODULE = 'vidlio.UserProfile'
+# AUTH_USER_MODULE = 'accounts.MyProfile'
+
+LOGIN_REDIRECT_URL = '/%(username)s/'
+LOGIN_URL = '/signin/'
+LOGOUT_URL = '/signout/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
