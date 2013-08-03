@@ -1,43 +1,22 @@
 # Django settings for vidlio project.
 
-import os
-import psycopg2
-import urlparse
-
-# urlparse.uses_netloc.append("postgres")
-# url = urlparse.urlparse(os.environ["DATABASE_URL"])
-
-# conn = psycopg2.connect(
-#     database=url.path[1:],
-#     user=url.username,
-#     password=url.password,
-#     host=url.hostname,
-#     port=url.port
-# )
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Chris Villarreal', 'chrisvillarreal1018@gmail.com'),
+    # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
-
-# DATABASES = {
-#     'default': dj_database_url.config(default=os.environ["DATABASE_URL"])
-# }
-
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'vidliodb',                      # Or path to database file if using sqlite3.
-        # # The following settings are not used with sqlite3:
-        # 'USER': 'ofhvqezinhxful',
-        # 'PASSWORD': 'pv5-C_TOe8gsMViwe9hcShbg4r',
-        # 'HOST': 'ec2-54-225-89-169.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        # 'PORT': '5432',                      # Set to empty string for default.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -47,8 +26,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+ANONYMOUS_USER_ID = -1
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+# See https://docs.djangoproject.com/en/1.4/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
@@ -75,22 +56,22 @@ USE_L10N = True
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
+# Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
+# Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
 
 # URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
+# Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
 # Additional locations of static files
@@ -103,14 +84,13 @@ STATICFILES_DIRS = (
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '66sdh@d3u0be+87(@hsx=k4a@msz)b)i1o1@_8x7201+7ny%&p'
+SECRET_KEY = 'z9a05e&amp;2atcb_srk69$hqo$(qqj97aukpa!yj$x1h^qtm6e=o1'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -148,19 +128,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    'django_admin_bootstrapped',
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    # 'registration',
-    'storages',
-    # 'profiles',
     'userena',
     'guardian',
     'easy_thumbnails',
+    'accounts',
 )
-
-#information for activation email and such
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 EMAIL_HOST = 'smtp.gmail.com'
@@ -170,19 +145,12 @@ EMAIL_HOST_USER = 'vidlioapp@gmail.com'
 EMAIL_SUBJECT_PREFIX = 'something'
 EMAIL_USE_TLS = True
 
-# specifying models for user profiles
-# AUTH_PROFILE_MODULE = "profiles.UserProfile"
-# AUTH_USER_MODULE = "profiles.UserProfile"
-
-# LOGIN_REDIRECT_URL = "/profile/create"
-
-ANONYMOUS_USER_ID = -1
-AUTH_PROFILE_MODULE = 'vidlio.UserProfile'
-# AUTH_USER_MODULE = 'accounts.MyProfile'
+AUTH_PROFILE_MODULE = 'accounts.MyProfile'
 
 LOGIN_REDIRECT_URL = '/%(username)s/'
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -212,35 +180,3 @@ LOGGING = {
         },
     }
 }
-
-# storage information for static files using AWS S3
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
-AWS_ACCESS_KEY_ID = 'AKIAI6XYD2NQ2SBDO2YA'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'vidlio'
-STATIC_URL = '//s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
-
-# # required for Heroku db
-
-# Parse database configuration from $DATABASE_URL
-# import dj_database_url
-# DATABASES['default'] =  dj_database_url.config()
-
-# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# # Allow all host headers
-# ALLOWED_HOSTS = ['*']
-
-# # Static asset configuration
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-# STATIC_ROOT = 'staticfiles'
-# STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )

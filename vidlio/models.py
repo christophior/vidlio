@@ -1,7 +1,10 @@
-from django.db import models
-from userena.models import UserenaBaseProfile
+# from django.db import models
+# from django.contrib.auth.models import User
+# from django.utils.translation import ugettext as _
+# from userena.models import UserenaBaseProfile
 
-class UserProfile(UserenaBaseProfile):
-    user = models.ForeignKey(User, unique=True)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=30, blank=True)
+# class MyProfile(UserenaBaseProfile):
+#     user = models.OneToOneField(User,
+#                                 unique=True,
+#                                 verbose_name=_('user'),
+#                                 related_name='my_profile')
