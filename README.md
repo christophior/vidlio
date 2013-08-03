@@ -43,5 +43,5 @@ Install Django and other modules with pip
 Start project
 
 	To run the project we will be using Foreman, just run
-	$ foreman start
+	$ python manage.py runserver 5000
 	and the project should be running on http://localhost:5000
