@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'guardian',
     'easy_thumbnails',
     'accounts',
+    'storages',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
@@ -152,6 +153,16 @@ LOGIN_REDIRECT_URL = '/%(username)s/'
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
 
+
+#storages
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
+AWS_ACCESS_KEY_ID = 'AKIAI6XYD2NQ2SBDO2YA'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'vidlio'
+STATIC_URL = '//s3.amazonaws.com/%s/' % AWS_STORAGE_BUCKET_NAME
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

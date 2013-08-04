@@ -49,7 +49,7 @@ USERENA_REMEMBER_ME_DAYS = getattr(settings,
 USERENA_FORBIDDEN_USERNAMES = getattr(settings,
                                       'USERENA_FORBIDDEN_USERNAMES',
                                       ('signup', 'signout', 'signin',
-                                       'activate', 'me', 'password'))
+                                       'activate', 'me', 'password', 'admin'))
 
 USERENA_USE_HTTPS = getattr(settings,
                             'USERENA_USE_HTTPS',
@@ -85,11 +85,11 @@ USERENA_DEFAULT_PRIVACY = getattr(settings,
 
 USERENA_DISABLE_PROFILE_LIST = getattr(settings,
                                        'USERENA_DISABLE_PROFILE_LIST',
-                                       False)
+                                       True)
 
 USERENA_USE_MESSAGES = getattr(settings,
                                'USERENA_USE_MESSAGES',
-                               True)
+                               False)
 
 USERENA_LANGUAGE_FIELD = getattr(settings,
                                  'USERENA_LANGUAGE_FIELD',
@@ -105,4 +105,4 @@ USERENA_PROFILE_DETAIL_TEMPLATE = getattr(
 USERENA_PROFILE_LIST_TEMPLATE = getattr(
     settings, 'USERENA_PROFILE_LIST_TEMPLATE', 'userena/profile_list.html')
 
-USERENA_HIDE_EMAIL = getattr(settings, 'USERENA_HIDE_EMAIL', False)
+USERENA_HIDE_EMAIL = getattr(settings, 'USERENA_HIDE_EMAIL', True)
