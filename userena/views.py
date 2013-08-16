@@ -685,8 +685,8 @@ def profile_detail(request, username,
     except profile_model.DoesNotExist:
         profile = profile_model.objects.create(user=user)
 
-    if not profile.can_view_profile(request.user):
-        return HttpResponseForbidden(_("You don't have permission to view this profile."))
+    # if not profile.can_view_profile(request.user):
+        # return HttpResponseForbidden(_("You don't have permission to view this profile."))
     if not extra_context: extra_context = dict()
     extra_context['profile'] = user.get_profile()
     extra_context['hide_email'] = userena_settings.USERENA_HIDE_EMAIL

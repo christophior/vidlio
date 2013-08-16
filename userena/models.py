@@ -13,6 +13,8 @@ from userena.managers import UserenaManager, UserenaBaseProfileManager
 from userena.utils import get_gravatar, generate_sha1, get_protocol, \
     get_datetime_now, get_user_model, user_model_label
 import datetime
+from embed_video.fields import EmbedVideoField
+
 
 
 PROFILE_PERMISSIONS = (
@@ -20,22 +22,22 @@ PROFILE_PERMISSIONS = (
 )
 
 
-def upload_to_mugshot(instance, filename):
-    """
-    Uploads a mugshot for a user to the ``USERENA_MUGSHOT_PATH`` and saving it
-    under unique hash for the image. This is for privacy reasons so others
-    can't just browse through the mugshot directory.
+# def upload_to_mugshot(instance, filename):
+#     """
+#     Uploads a mugshot for a user to the ``USERENA_MUGSHOT_PATH`` and saving it
+#     under unique hash for the image. This is for privacy reasons so others
+#     can't just browse through the mugshot directory.
 
-    """
-    extension = filename.split('.')[-1].lower()
-    salt, hash = generate_sha1(instance.id)
-    path = userena_settings.USERENA_MUGSHOT_PATH % {'username': instance.user.username,
-                                                    'id': instance.user.id,
-                                                    'date': instance.user.date_joined,
-                                                    'date_now': get_datetime_now().date()}
-    return '%(path)s%(hash)s.%(extension)s' % {'path': path,
-                                               'hash': hash[:10],
-                                               'extension': extension}
+#     """
+#     extension = filename.split('.')[-1].lower()
+#     salt, hash = generate_sha1(instance.id)
+#     path = userena_settings.USERENA_MUGSHOT_PATH % {'username': instance.user.username,
+#                                                     'id': instance.user.id,
+#                                                     'date': instance.user.date_joined,
+#                                                     'date_now': get_datetime_now().date()}
+#     return '%(path)s%(hash)s.%(extension)s' % {'path': path,
+#                                                'hash': hash[:10],
+#                                                'extension': extension}
 
 
 class UserenaSignup(models.Model):
@@ -198,31 +200,37 @@ class UserenaSignup(models.Model):
                   [self.user.email, ])
 
 
+# class Item(models.Model):
+#     video = EmbedVideoField()  # same like models.URLField()
+
+
 class UserenaBaseProfile(models.Model):
     """ Base model needed for extra profile functionality """
-    PRIVACY_CHOICES = (
-        ('open', _('Open')),
-        ('registered', _('Registered')),
-        ('closed', _('Closed')),
-    )
+    # PRIVACY_CHOICES = (
+    #     ('open', _('Open')),
+    #     ('registered', _('Registered')),
+    #     ('closed', _('Closed')),
+    # )
 
-    MUGSHOT_SETTINGS = {'size': (userena_settings.USERENA_MUGSHOT_SIZE,
-                                 userena_settings.USERENA_MUGSHOT_SIZE),
-                        'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}
+    # MUGSHOT_SETTINGS = {'size': (userena_settings.USERENA_MUGSHOT_SIZE,
+    #                              userena_settings.USERENA_MUGSHOT_SIZE),
+    #                     'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}
 
-    mugshot = ThumbnailerImageField(_('mugshot'),
-                                    blank=True,
-                                    upload_to=upload_to_mugshot,
-                                    resize_source=MUGSHOT_SETTINGS,
-                                    help_text=_('A personal image displayed in your profile.'))
+    # mugshot = ThumbnailerImageField(_('mugshot'),
+    #                                 blank=True,
+    #                                 upload_to=upload_to_mugshot,
+    #                                 resize_source=MUGSHOT_SETTINGS,
+    #                                 help_text=_('A personal image displayed in your profile.'))
 
-    privacy = models.CharField(_('privacy'),
-                               max_length=15,
-                               choices=PRIVACY_CHOICES,
-                               default=userena_settings.USERENA_DEFAULT_PRIVACY,
-                               help_text=_('Designates who can view your profile.'))
+    # privacy = models.CharField(_('privacy'),
+    #                            max_length=15,
+    #                            choices=PRIVACY_CHOICES,
+    #                            default=userena_settings.USERENA_DEFAULT_PRIVACY,
+    #                            help_text=_('Designates who can view your profile.'))
 
     objects = UserenaBaseProfileManager()
+    video = EmbedVideoField() 
+    # videos = models.ManyToManyField(Item)
 
     class Meta:
         """
@@ -246,39 +254,39 @@ class UserenaBaseProfile(models.Model):
     def __unicode__(self):
         return 'Profile of %(username)s' % {'username': self.user.username}
 
-    def get_mugshot_url(self):
-        """
-        Returns the image containing the mugshot for the user.
+    # def get_mugshot_url(self):
+    #     """
+    #     Returns the image containing the mugshot for the user.
 
-        The mugshot can be a uploaded image or a Gravatar.
+    #     The mugshot can be a uploaded image or a Gravatar.
 
-        Gravatar functionality will only be used when
-        ``USERENA_MUGSHOT_GRAVATAR`` is set to ``True``.
+    #     Gravatar functionality will only be used when
+    #     ``USERENA_MUGSHOT_GRAVATAR`` is set to ``True``.
 
-        :return:
-            ``None`` when Gravatar is not used and no default image is supplied
-            by ``USERENA_MUGSHOT_DEFAULT``.
+    #     :return:
+    #         ``None`` when Gravatar is not used and no default image is supplied
+    #         by ``USERENA_MUGSHOT_DEFAULT``.
 
-        """
-        # First check for a mugshot and if any return that.
-        if self.mugshot:
-            return self.mugshot.url
+    #     """
+    #     # First check for a mugshot and if any return that.
+    #     if self.mugshot:
+    #         return self.mugshot.url
 
-        # Use Gravatar if the user wants to.
-        if userena_settings.USERENA_MUGSHOT_GRAVATAR:
-            return get_gravatar(self.user.email,
-                                userena_settings.USERENA_MUGSHOT_SIZE,
-                                userena_settings.USERENA_MUGSHOT_DEFAULT)
+    #     # Use Gravatar if the user wants to.
+    #     if userena_settings.USERENA_MUGSHOT_GRAVATAR:
+    #         return get_gravatar(self.user.email,
+    #                             userena_settings.USERENA_MUGSHOT_SIZE,
+    #                             userena_settings.USERENA_MUGSHOT_DEFAULT)
 
-        # Gravatar not used, check for a default image.
-        else:
-            if userena_settings.USERENA_MUGSHOT_DEFAULT not in ['404', 'mm',
-                                                                'identicon',
-                                                                'monsterid',
-                                                                'wavatar']:
-                return userena_settings.USERENA_MUGSHOT_DEFAULT
-            else:
-                return None
+    #     # Gravatar not used, check for a default image.
+    #     else:
+    #         if userena_settings.USERENA_MUGSHOT_DEFAULT not in ['404', 'mm',
+    #                                                             'identicon',
+    #                                                             'monsterid',
+    #                                                             'wavatar']:
+    #             return userena_settings.USERENA_MUGSHOT_DEFAULT
+    #         else:
+    #             return None
 
     def get_full_name_or_username(self):
         """
@@ -310,50 +318,50 @@ class UserenaBaseProfile(models.Model):
                 name = "%(email)s" % {'email': user.email}
         return name.strip()
 
-    def can_view_profile(self, user):
-        """
-        Can the :class:`User` view this profile?
+    # def can_view_profile(self, user):
+    #     """
+    #     Can the :class:`User` view this profile?
 
-        Returns a boolean if a user has the rights to view the profile of this
-        user.
+    #     Returns a boolean if a user has the rights to view the profile of this
+    #     user.
 
-        Users are divided into four groups:
+    #     Users are divided into four groups:
 
-            ``Open``
-                Everyone can view your profile
+    #         ``Open``
+    #             Everyone can view your profile
 
-            ``Closed``
-                Nobody can view your profile.
+    #         ``Closed``
+    #             Nobody can view your profile.
 
-            ``Registered``
-                Users that are registered on the website and signed
-                in only.
+    #         ``Registered``
+    #             Users that are registered on the website and signed
+    #             in only.
 
-            ``Admin``
-                Special cases like superadmin and the owner of the profile.
+    #         ``Admin``
+    #             Special cases like superadmin and the owner of the profile.
 
-        Through the ``privacy`` field a owner of an profile can define what
-        they want to show to whom.
+    #     Through the ``privacy`` field a owner of an profile can define what
+    #     they want to show to whom.
 
-        :param user:
-            A Django :class:`User` instance.
+    #     :param user:
+    #         A Django :class:`User` instance.
 
-        """
-        # Simple cases first, we don't want to waste CPU and DB hits.
-        # Everyone.
-        if self.privacy == 'open':
-            return True
-        # Registered users.
-        elif self.privacy == 'registered' \
-        and isinstance(user, get_user_model()):
-            return True
+    #     """
+    #     # Simple cases first, we don't want to waste CPU and DB hits.
+    #     # Everyone.
+    #     if self.privacy == 'open':
+    #         return True
+    #     # Registered users.
+    #     elif self.privacy == 'registered' \
+    #     and isinstance(user, get_user_model()):
+    #         return True
 
-        # Checks done by guardian for owner and admins.
-        elif 'view_profile' in get_perms(user, self):
-            return True
+    #     # Checks done by guardian for owner and admins.
+    #     elif 'view_profile' in get_perms(user, self):
+    #         return True
 
-        # Fallback to closed profile.
-        return False
+    #     # Fallback to closed profile.
+    #     return False
 
 
 class UserenaLanguageBaseProfile(UserenaBaseProfile):

@@ -81,7 +81,7 @@ USERENA_MUGSHOT_PATH = getattr(settings,
 
 USERENA_DEFAULT_PRIVACY = getattr(settings,
                                   'USERENA_DEFAULT_PRIVACY',
-                                  'registered')
+                                  'open')
 
 USERENA_DISABLE_PROFILE_LIST = getattr(settings,
                                        'USERENA_DISABLE_PROFILE_LIST',

@@ -137,6 +137,8 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'accounts',
     'storages',
+    'embed_video',
+    'south',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window

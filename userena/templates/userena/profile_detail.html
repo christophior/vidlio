@@ -1,6 +1,8 @@
 {% extends 'userena/base_userena.html' %}
 {% load i18n %}
 {% load url from future %}
+{% load embed_video_tags %}
+
 
 {% block title %}{% blocktrans with profile.user.username as username %}{{ username }}'s profile.{% endblocktrans %}{% endblock %}
 {% block content_title %}<h2>{{ profile.user.username }} {% if profile.user.get_full_name %}({{ profile.user.get_full_name }}){% endif %}</h2>{% endblock %}
@@ -23,7 +25,6 @@
 
     <div id="details">
       {% block profile_details %}
-        <img class="mugshot" src="{{ profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
         <dl>
           {% block profile_definition_list %}
             {% if profile.user.get_full_name %}
@@ -54,5 +55,10 @@
         </dl>
       {% endblock %}
     </div>
+
+  {{ 'https://www.youtube.com/watch?v=VP7GNxLI9fM'|embed:'small' }}
+  {{ 'http://vimeo.com/39912287'|embed:'small' }}
+
+
   </div>
 {% endblock %}
