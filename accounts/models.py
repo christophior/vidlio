@@ -5,8 +5,8 @@ from userena.models import UserenaBaseProfile
 from embed_video.fields import EmbedVideoField
 
 
-class Item(models.Model):
-    video = EmbedVideoField()  # same like models.URLField()
+# class Item(models.Model):
+#     video = EmbedVideoField()  # same like models.URLField()
 
 class MyProfile(UserenaBaseProfile):
     user = models.OneToOneField(User,

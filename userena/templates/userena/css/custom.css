@@ -1,0 +1,51 @@
+body{
+	background-color: #222;
+}
+
+.scroll{
+	position: block;
+	height: 195px;
+	/* 45px */
+	/*border: solid 1px #333;*/
+}
+
+.main{
+	height: calc(100% - 285px);
+	/*border: solid 1px #333;*/
+	padding-top: 10px;
+}
+
+.clearfix:before, .clearfix:after { 
+	content: " "; 
+	display: table; 
+}
+.clearfix:after { 
+	clear: both; 
+}
+.clearfix { 
+	*zoom:1; 
+}
+
+.video{
+	width:825px; /* w/h after proportions */
+	height:464px;
+}
+
+.left, .right{
+	position: absolute;
+	padding-top: 20px;
+	position:block;
+	width: auto;
+	height: 100%;
+	top: 0;
+
+}
+.left {
+	right:100%;
+}
+.right {
+	left:100%;
+}
+/*.right{
+	position: block;
+}*/

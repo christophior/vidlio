@@ -1,8 +1,3 @@
-{% extends 'userena/base_userena.html' %}
-{% load i18n %}
-{% load url from future %}
-{% load embed_video_tags %}
-
 <html>
   <head>
     <meta charset="utf-8" />
@@ -13,16 +8,15 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/horizontal.css" />
 
     <!-- If you are using the gem version, you need this only -->
     <link rel="stylesheet" href="css/app.css" />
 
     <script src="js/vendor/custom.modernizr.js"></script>
-    <script src="js/vendor/sly.min.js"></script>
 
   </head>
 
-{% block content %}
   <body>
 
   <!-- Nav Bar -->
@@ -49,22 +43,34 @@
       </ul>
     </section>
   </nav>
- 
-  <!-- Scroll bar row -->
-  <div class="row">
-    <div class="scroll">
-    </div>
-  </div>
 
   <!-- Main content row -->
   <div class="row">
     <div class="main">
+      <center><iframe class="video" src="http://www.youtube.com/embed/QpNHippCVCE?rel=0&wmode=transparent" wmode="Opaque" frameborder="0" allowfullscreen></iframe></center>
     </div>
   </div>
   
-
+  <!-- Scroll bar row -->
+  <div class="row">
+    <div class="left"><i class="icon-chevron-left"></i></div>
+    <div class="scroll">
+      <div class="wrap">
+        <div class="frame" id="basic">
+          <ul class="clearfix">
+            <li><img src="http://img.youtube.com/vi/1eWdbMBYlH4/hqdefault.jpg"></li>
+            <li><img src="http://img.youtube.com/vi/07FYdnEawAQ/hqdefault.jpg"></li>
+            <li><img src="http://img.youtube.com/vi/xdeFB7I0YH4/hqdefault.jpg"></li>
+            <li><img src="http://img.youtube.com/vi/cmSbXsFE3l8/hqdefault.jpg"></li>
+            <li><img src="http://img.youtube.com/vi/yyDUC1LUXSU/hqdefault.jpg"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="right"><i class="icon-chevron-right"></i></div>
+  </div>
     <!-- Footer --> 
-<!--       <footer class="row">
+<!--   <footer class="row">
         <div class="large-12 columns"><hr>
           <ul class="inline-list middle">
             <li><a href="#">@MyVidlio</a></li>
@@ -76,16 +82,6 @@
  
     </div>
   </div>
- 
-  <script>
-  document.write('<script src=js/vendor/' +
-  ('__proto__' in {} ? 'zepto' : 'jquery') +
-  '.js><\/script>')
-  </script>
-  <script src="js/foundation.min.js"></script>
-  <script>
-    $(document).foundation();
-  </script>
 <!-- End Footer -->
 
     <script>
@@ -93,24 +89,12 @@
     ('__proto__' in {} ? 'js/vendor/zepto' : 'js/vendor/jquery') +
     '.js><\/script>')
     </script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="js/sly.min.js"></script>
+    <script src="js/horizontal.js"></script>
     <script src="js/foundation/foundation.js"></script>
-    <script src="js/foundation/foundation.alerts.js"></script>
-    <script src="js/foundation/foundation.clearing.js"></script>
-    <script src="js/foundation/foundation.cookie.js"></script>
-    <script src="js/foundation/foundation.dropdown.js"></script>
-    <script src="js/foundation/foundation.forms.js"></script>
-    <script src="js/foundation/foundation.joyride.js"></script>
-    <script src="js/foundation/foundation.magellan.js"></script>
-    <script src="js/foundation/foundation.orbit.js"></script>
-    <script src="js/foundation/foundation.placeholder.js"></script>
-    <script src="js/foundation/foundation.reveal.js"></script>
-    <script src="js/foundation/foundation.section.js"></script>
-    <script src="js/foundation/foundation.tooltips.js"></script>
-    <script src="js/foundation/foundation.topbar.js"></script>
-    <script src="js/foundation/foundation.interchange.js"></script>
     <script>
       $(document).foundation();
     </script>
   </body>
 </html>
-{% endblock %}

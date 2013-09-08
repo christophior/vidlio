@@ -229,7 +229,12 @@ class UserenaBaseProfile(models.Model):
     #                            help_text=_('Designates who can view your profile.'))
 
     objects = UserenaBaseProfileManager()
-    video = EmbedVideoField() 
+    video1 = EmbedVideoField(blank=True)
+    video2 = EmbedVideoField(blank=True)
+    video3 = EmbedVideoField(blank=True)
+    video4 = EmbedVideoField(blank=True)
+    video5 = EmbedVideoField(blank=True)
+    # video1 = EmbedVideoField() 
     # videos = models.ManyToManyField(Item)
 
     class Meta:
