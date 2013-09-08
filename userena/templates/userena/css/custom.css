@@ -26,9 +26,30 @@ body{
 	*zoom:1; 
 }
 
-.video{
-	width:825px; /* w/h after proportions */
-	height:464px;
+.video1{
+	display: none;
+	visibility: hidden;
+}
+
+.video2{
+	display: none;
+	visibility: hidden;
+
+}
+
+.video3{
+	display: none;		
+	visibility: hidden;
+
+}
+
+.video4{
+
+}
+
+.video5{
+	display: none;
+	visibility: hidden;
 }
 
 .leftarrow, .rightarrow{

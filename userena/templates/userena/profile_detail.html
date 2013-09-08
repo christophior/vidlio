@@ -51,7 +51,33 @@
   <!-- Main content row -->
   <div class="row">
     <div class="main">
-      <center><iframe class="video" src="http://www.youtube.com/embed/QpNHippCVCE?rel=0&wmode=transparent" wmode="Opaque" frameborder="0" allowfullscreen></iframe></center>
+      <center>
+        <div class="video1 video-family">
+          {% video profile.video1 as my_video %}
+            {{ my_video|embed:'825x464' }}
+          {% endvideo %}
+        </div>
+        <div class="video2 video-family">
+          {% video profile.video2 as my_video %}
+            {{ my_video|embed:'825x464' }}
+          {% endvideo %}
+        </div>
+        <div class="video3 video-family">
+          {% video profile.video3 as my_video %}
+            {{ my_video|embed:'825x464' }}
+          {% endvideo %}
+        </div>
+        <div class="video4 video-family">
+          {% video profile.video4 as my_video %}
+            {{ my_video|embed:'825x464' }}
+          {% endvideo %}
+        </div>
+        <div class="video5 video-family">
+          {% video profile.video5 as my_video %}
+            {{ my_video|embed:'825x464' }}
+          {% endvideo %}
+        </div>
+        </center>
     </div>
   </div>
   
@@ -64,11 +90,23 @@
       <div class="wrap">
         <div class="frame" id="basic">
           <ul class="clearfix">
-            <li><img src="http://img.youtube.com/vi/1eWdbMBYlH4/hqdefault.jpg"></li>
-            <li><img src="http://img.youtube.com/vi/07FYdnEawAQ/hqdefault.jpg"></li>
-            <li><img src="http://img.youtube.com/vi/xdeFB7I0YH4/hqdefault.jpg"></li>
-            <li><img src="http://img.youtube.com/vi/cmSbXsFE3l8/hqdefault.jpg"></li>
-            <li><img src="http://img.youtube.com/vi/yyDUC1LUXSU/hqdefault.jpg"></li>
+   <!--          <li><img src="http://img.youtube.com/vi/1eWdbMBYlH4/hqdefault.jpg"></li> -->
+
+            {% video profile.video1 as my_video %}
+              <li id="img1"><img src="{{ my_video.thumbnail}}"></li>
+            {% endvideo %}
+            {% video profile.video2 as my_video %}
+              <li id="img2"><img src="{{ my_video.thumbnail}}"></li>
+            {% endvideo %}
+            {% video profile.video3 as my_video %}
+              <li id="img3"><img src="{{ my_video.thumbnail}}"></li>
+            {% endvideo %}
+            {% video profile.video4 as my_video %}
+              <li id="img4"><img src="{{ my_video.thumbnail}}"></li>
+            {% endvideo %}
+            {% video profile.video5 as my_video %}
+              <li id="img5"><img src="{{ my_video.thumbnail}}"></li>
+            {% endvideo %}
           </ul>
         </div>
       </div>
@@ -103,7 +141,7 @@
     <script src="https://dl.dropboxusercontent.com/u/3848960/js/foundation/foundation.js"></script>
     <script src="https://dl.dropboxusercontent.com/u/3848960/js/zepto.js"></script>
     <script src="https://dl.dropboxusercontent.com/u/3848960/js/vendor/plugins.js"></script>
-
+    <script src="https://dl.dropboxusercontent.com/u/3848960/js/custom.js"></script>
     <script>
       $(document).foundation();
     </script>
