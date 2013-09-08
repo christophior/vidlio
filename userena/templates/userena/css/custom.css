@@ -46,6 +46,18 @@ body{
 .rightarrow {
 	left:100%;
 }
+
+button {
+	border:none;
+	height:100%;
+	background:#000;
+	opacity:0.5;
+}
+
+button:hover {
+	background:#000;
+	opacity:0.8;
+}
 /*.right{
 	position: block;
 }*/
